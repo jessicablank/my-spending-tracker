@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aesthetic Expense Tracker</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div class="card">
+    <div class="header">
+      <h2>✨ Log Expense</h2>
+      <p>Keep track of your spending</p>
+    </div>
+
+    <form id="expenseForm">
+      <div class="form-group">
+        <label for="amount">Amount ($)</label>
+        <input type="number" id="amount" step="0.01" min="0.01" required placeholder="0.00">
+      </div>
+
+      <div class="form-group">
+        <label for="category">Category</label>
+        <select id="category" required>
+          <option value="Groceries">🛒 Groceries</option>
+          <option value="Dining Out">☕ Dining Out</option>
+          <option value="Utilities & Bills">💡 Utilities & Bills</option>
+          <option value="Transportation">🚗 Transportation</option>
+          <option value="Entertainment">🎬 Entertainment</option>
+          <option value="Shopping">🛍️ Shopping</option>
+          <option value="Other">✨ Other</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="note">Note / Details</label>
+        <input type="text" id="note" maxlength="200" placeholder="Coffee, Trader Joe's...">
+      </div>
+
+      <button type="submit" id="submitBtn">Save Expense</button>
+    </form>
+
+    <div id="status" aria-live="polite"></div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
