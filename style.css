@@ -62,6 +62,15 @@ body {
   margin-top: 4px;
 }
 
+.forecast-link {
+  display: inline-block;
+  margin-top: 14px;
+  color: var(--success-text);
+  font-size: 14px;
+  font-weight: 700;
+  text-underline-offset: 3px;
+}
+
 .form-group {
   margin-bottom: 18px;
 }

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Checking Forecast | Spending Tracker</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="forecast.css">
+</head>
+<body>
+  <div class="workspace">
+    <nav aria-label="Main navigation">
+      <a class="brand" href="index.html">Spending Tracker</a>
+      <div class="nav-links"><a href="index.html">Log Expense</a><a href="forecast.html" aria-current="page">Checking Forecast</a></div>
+    </nav>
+    <main>
+      <header class="page-header">
+        <div><p class="eyebrow">MONTHLY CASH FLOW</p><h1>Checking Forecast</h1><p id="month-label">No month loaded</p></div>
+        <div class="file-actions">
+          <label class="upload-button" for="forecast-file">Open JSON file</label>
+          <input id="forecast-file" class="visually-hidden" type="file" accept=".json,application/json">
+          <button id="download-template" type="button">Download template</button>
+        </div>
+      </header>
+      <p id="file-status" class="file-status" role="status">Local file only. Your financial data is not uploaded or saved by this page.</p>
+      <p id="file-error" class="error-message" role="alert" hidden></p>
+      <section id="empty-state" class="empty-state" aria-labelledby="empty-title">
+        <div class="empty-art" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span></div>
+        <h2 id="empty-title">Your month, at a glance</h2>
+        <p>No forecast loaded</p>
+        <button id="load-example" type="button">View example month</button>
+      </section>
+      <div id="forecast-results" hidden>
+        <section id="transfer-summary" class="transfer-summary" aria-labelledby="transfer-title">
+          <div><p class="eyebrow" id="transfer-category"></p><h2 id="transfer-title" aria-live="polite" aria-atomic="true"></h2><p id="transfer-detail"></p></div>
+          <div class="cushion-control"><label for="cushion">Checking cushion ($)</label><input id="cushion" type="number" min="0" step="0.01" required><p id="cushion-error" role="alert" hidden></p></div>
+        </section>
+        <section class="metrics" aria-label="Forecast totals">
+          <div><h3>Starting balance</h3><p id="starting-balance"></p><span>At the start of the month</span></div>
+          <div><h3>Expected income</h3><p id="total-income"></p><span id="paycheck-count"></span></div>
+          <div><h3>Expected bills</h3><p id="total-bills"></p><span id="bill-count"></span></div>
+          <div><h3>Month-end balance</h3><p id="ending-balance"></p><span>After all listed transactions</span></div>
+        </section>
+        <section class="balance-section" aria-labelledby="balance-heading">
+          <div class="section-heading"><h2 id="balance-heading">Balance outlook</h2><div class="chart-key"><span class="balance-key">Projected balance</span><span class="cushion-key">Cushion</span></div></div>
+          <div class="chart-container"><canvas id="balance-chart" role="img" aria-label="Projected checking balance. Exact balances are listed in the timeline below."></canvas></div>
+          <p class="low-point">Lowest projected balance <strong id="lowest-balance"></strong><span id="lowest-date"></span></p>
+        </section>
+        <section class="timeline-section" aria-labelledby="timeline-heading">
+          <div class="section-heading"><h2 id="timeline-heading">Monthly timeline</h2><span id="transaction-count"></span></div>
+          <div class="table-scroll" role="region" aria-label="Monthly transactions" tabindex="0">
+            <table><thead><tr><th scope="col">Date</th><th scope="col">Transaction</th><th scope="col">Amount</th><th scope="col">Balance</th><th scope="col">Cushion status</th></tr></thead><tbody id="timeline-body"></tbody></table>
+          </div>
+        </section>
+        <p class="forecast-note">Estimate only. Withdrawals precede deposits on the same date. Include pending payments and other spending in your JSON; bank posting times may differ. Savings headroom assumes the entire listed month is still ahead.</p>
+      </div>
+    </main>
+  </div>
+  <script src="forecast-calculator.js"></script>
+  <script src="forecast-page.js"></script>
+</body>
+</html>
