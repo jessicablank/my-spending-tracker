@@ -145,15 +145,38 @@ function drawChart() {
   canvas.setAttribute('aria-label', `Projected balance for ${element('month-label').textContent}. Lowest ${formatMoney(result.lowestBalance)} on ${formatDate(result.lowestDate)}; ending ${formatMoney(result.endingBalance)}. Exact balances in the timeline below.`);
 }
 
-function loadData(data, source) {
+function loadData(data, source, published = false) {
   const result = CheckingForecast.calculateForecast(data);
   currentData = data;
   element('cushion').value = data.minimumBalance;
   element('cushion').removeAttribute('aria-invalid');
   element('cushion-error').hidden = true;
   element('file-error').hidden = true;
-  element('file-status').textContent = `${source}. Local to this tab; nothing uploaded or saved. Closing or reloading clears the forecast.`;
+  element('file-status').textContent = published
+    ? `${source}. Published forecast; cushion edits apply only to this tab.`
+    : `${source}. Local preview only; not uploaded or saved. Reload to return to the published forecast.`;
   render(result);
+}
+
+async function loadPublishedForecast() {
+  if (window.location.protocol === 'file:') {
+    element('file-status').textContent = 'Local preview. Open JSON file to view a forecast; automatic loading requires HTTP or HTTPS.';
+    return;
+  }
+  const version = fileVersion;
+  element('file-status').textContent = 'Loading published forecast...';
+  try {
+    const response = await fetch('./checking-forecast.json', { cache: 'no-store' });
+    if (!response.ok) throw new Error(`Could not fetch checking-forecast.json (HTTP ${response.status}).`);
+    const data = await response.json();
+    if (version !== fileVersion) return;
+    loadData(data, 'checking-forecast.json', true);
+  } catch (error) {
+    if (version !== fileVersion) return;
+    element('file-status').textContent = 'Published forecast unavailable.';
+    element('file-error').textContent = `Could not load published forecast: ${error.message} You can still open a local JSON file to preview it.`;
+    element('file-error').hidden = false;
+  }
 }
 
 element('forecast-file').addEventListener('change', async event => {
@@ -207,3 +230,4 @@ element('cushion').addEventListener('input', event => {
 });
 
 new ResizeObserver(drawChart).observe(element('balance-chart'));
+loadPublishedForecast();

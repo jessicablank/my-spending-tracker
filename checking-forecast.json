@@ -1,0 +1,20 @@
+{
+  "month": "2026-11",
+  "startingBalance": 3200,
+  "minimumBalance": 500,
+  "paychecks": [
+    { "person": "Me", "date": "2026-11-06", "amount": 2400 },
+    { "person": "Husband", "date": "2026-11-13", "amount": 2600 },
+    { "person": "Me", "date": "2026-11-20", "amount": 2400 },
+    { "person": "Husband", "date": "2026-11-27", "amount": 2600 }
+  ],
+  "bills": [
+    { "name": "Mortgage", "date": "2026-11-01", "amount": 1900 },
+    { "name": "HOA", "date": "2026-11-05", "amount": 250 },
+    { "name": "Credit card - Me", "date": "2026-11-06", "amount": 875.42 },
+    { "name": "Electricity", "date": "2026-11-12", "amount": 145.80 },
+    { "name": "Credit card - Husband", "date": "2026-11-18", "amount": 1100 },
+    { "name": "Water (every two months)", "date": "2026-11-22", "amount": 120 },
+    { "name": "Internet", "date": "2026-11-25", "amount": 75 }
+  ]
+}
